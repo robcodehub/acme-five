@@ -52,13 +52,28 @@
         constructor() {
           super();
             this.state = {
-
+              products: [],
+              companies: [],
+              offerings: []
           }
         }
 
+        async componentDidMount() {
+          const products = ((await axios.get(`${API}/products`)).data)
+          const companies = ((await axios.get(`${API}/companies`)).data)
+          const offerings = ((await axios.get(`${API}/offerings`)).data)
 
+          console.log("products=", products);
+          console.log("companies=", companies);
+          console.log("offerings=", offerings);
+
+          this.setState({ companies, products, offerings })
+        }
 
         render() {
+          const { products, companies, offerings } = this.state;
+
+
           return (
             <HashRouter>
 
