@@ -68,6 +68,16 @@
 
       const FiveAndOver = ({ products }) => {
 
+        const overFiveCheck = products.filter(product => {
+          return (product.suggestedPrice >= 5)
+        } ).map(product => {
+          return (<li key={product.id}> {product.name} || {product.suggestedPrice} </li>)
+        }
+
+        )
+        console.log("Over Five Check=", overFiveCheck)
+        return overFiveCheck;
+
       }
 
 
@@ -105,6 +115,7 @@
                 <div>
                 <Switch>
                   <Route path="/under5" render={() => <UnderFive products={ products } />} />
+                  <Route path="/over5" render={() => <FiveAndOver products={ products } />} />
                   </Switch>
                 </div>
             </HashRouter>
