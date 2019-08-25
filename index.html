@@ -31,23 +31,46 @@
     <script type='text/babel'>
       const { render } = ReactDOM;
       const { Component } = React;
-      const { NavLink, HashRouter, Router, Switch, Redirect, Link } = ReactRouterDOM;
+      const { NavLink, HashRouter, Route, Switch, Redirect, Link } = ReactRouterDOM;
 
       const API = 'https://acme-users-api-rev.herokuapp.com/api';
 
 
-      const Nav = () => {
+      const Nav = ({ products }) => {
+        const underFiveNums = products.filter( product => product.suggestedPrice <5);
         return (
           <div>
             <h1> Acme 5 - Over / Under</h1>
             <nav>
-              <Link to="/under5"> Under 5 </Link>
-              <Link to="/over5"> 5 and Over </Link>
+              <Link to="/under5"> Under 5 ( {underFiveNums.length} )</Link>
+              <Link to="/over5"> 5 and Over ( {products.length - underFiveNums.length} )</Link>
             </nav>
           </div>
         )
 
       }
+
+      const UnderFive = ({ products }) => {
+
+        console.log('under 5 check products', products);
+
+        const underFiveCheck = products.filter(product => {
+          return (product.suggestedPrice < 5)
+        } ).map(product => {
+          return (<li key={product.id}> {product.name} || {product.suggestedPrice} </li>)
+        }
+
+        )
+        console.log("Under Five Check=", underFiveCheck)
+        return underFiveCheck;
+      }
+
+
+      const FiveAndOver = ({ products }) => {
+
+      }
+
+
 
       class App extends Component {
         constructor() {
@@ -68,17 +91,22 @@
           console.log("companies=", companies);
           console.log("offerings=", offerings);
 
-          this.setState({ companies, products, offerings })
+          this.setState({ products, companies, offerings })
         }
 
         render() {
           const { products, companies, offerings } = this.state;
 
+          console.log("products render=", products)
 
           return (
             <HashRouter>
-
-              <Nav />
+              <Route render={() => <Nav render={Nav} products={products}/>} />
+                <div>
+                <Switch>
+                  <Route path="/under5" render={() => <UnderFive products={ products } />} />
+                  </Switch>
+                </div>
             </HashRouter>
           )
         }
