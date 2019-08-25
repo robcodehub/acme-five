@@ -10,7 +10,14 @@
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 
     <style>
+      body {
+        font-family: verdana;
+      }
 
+      nav {
+        display: flex;
+        justify-content: space-around;
+      }
     </style>
   </head>
 
@@ -23,7 +30,7 @@
     <script type='text/babel'>
       const { render } = ReactDOM;
       const { Component } = React;
-      const { NavLink, HashRouter, Router, Switch, Redirect } = ReactRouterDOM;
+      const { NavLink, HashRouter, Router, Switch, Redirect, Link } = ReactRouterDOM;
 
       const API = 'https://acme-users-api-rev.herokuapp.com/api';
 
@@ -33,8 +40,8 @@
           <div>
             <h1> Acme 5 - Over / Under</h1>
             <nav>
-              <span> Under 5 </span>
-              <span> 5 and Over </span>
+              <Link to="/under5"> Under 5 </Link>
+              <Link to="/over5"> 5 and Over </Link>
             </nav>
           </div>
         )
@@ -52,7 +59,12 @@
 
 
         render() {
-          return <Nav />
+          return (
+            <HashRouter>
+
+              <Nav />
+            </HashRouter>
+          )
         }
       }
 
