@@ -28,6 +28,19 @@
       const API = 'https://acme-users-api-rev.herokuapp.com/api';
 
 
+      const Nav = () => {
+        return (
+          <div>
+            <h1> Acme 5 - Over / Under</h1>
+            <nav>
+              <span> Under 5 </span>
+              <span> 5 and Over </span>
+            </nav>
+          </div>
+        )
+
+      }
+
       class App extends Component {
         constructor() {
           super();
@@ -39,7 +52,7 @@
 
 
         render() {
-          return <hr />
+          return <Nav />
         }
       }
 
